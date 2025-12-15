@@ -5,8 +5,8 @@
         <div class="mb-2 mb-md-0">
           <span class="footer-text">GitHub:&nbsp;</span>
           <span class="footer-text"
-            ><a href="https://github.com/stilleshan/subweb" target="_blank" class="fw-medium text-white footer-link"
-              >stilleshan/subweb</a
+            ><a href="https://github.com/Aethersailor/subweb" target="_blank" class="fw-medium text-white footer-link"
+              >Aethersailor/subweb</a
             ></span
           >
         </div>

@@ -23,7 +23,7 @@ window.config = {
     },
     {
       title: 'GitHub',
-      link: 'https://github.com/stilleshan/subweb',
+      link: 'https://github.com/Aethersailor/subweb',
       target: '_blank',
     },
   ],
