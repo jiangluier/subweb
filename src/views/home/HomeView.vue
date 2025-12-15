@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style scoped>
-.light-style .landing-hero {
+.landing-hero {
   background: transparent !important;
 }
 .landing-hero .hero-animation-img {
