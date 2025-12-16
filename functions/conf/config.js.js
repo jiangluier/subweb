@@ -48,23 +48,35 @@ export async function onRequest(context) {
         }
     }
 
-    // 4. Construct Final Config Object
+    // 4. Advanced: Menu Items
+    // Priority: env.MENU_ITEM (JSON) > Default List
+    let menuItem = [
+        {
+            title: '首页',
+            link: '/',
+            target: '',
+        },
+        {
+            title: 'GitHub',
+            link: 'https://github.com/Aethersailor/subweb',
+            target: '_blank',
+        },
+    ];
+
+    if (env.MENU_ITEM) {
+        try {
+            menuItem = JSON.parse(env.MENU_ITEM);
+        } catch (e) {
+            console.error('Failed to parse MENU_ITEM', e);
+        }
+    }
+
+    // 5. Construct Final Config Object
     const config = {
         siteName: siteName,
         apiBackends: apiBackends,
         shortUrl: shortUrl,
-        menuItem: [
-            {
-                title: '首页',
-                link: '/',
-                target: '',
-            },
-            {
-                title: 'GitHub',
-                link: 'https://github.com/Aethersailor/subweb',
-                target: '_blank',
-            },
-        ],
+        menuItem: menuItem,
         remoteConfigOptions: remoteConfigOptions,
     };
 
