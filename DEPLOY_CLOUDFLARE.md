@@ -24,6 +24,15 @@
 | `API_URL` | 本地后端 API 地址 | `http://127.0.0.1:25500` |
 | `SHORT_URL` | 短链接服务地址 | `https://s.ops.ci` |
 
+### 进阶配置 (JSON)
+
+如果需要配置多个后端或自定义远程配置列表，可以使用 **JSON 格式**的字符串。
+
+| 变量名 | 描述 | 示例值 (JSON String) |
+| :--- | :--- | :--- |
+| `API_BACKENDS` | 自定义后端列表 (覆盖 `API_URL`) | `[{"name":"我的服务","url":"https://api.example.com"},{"name":"备用","url":"https://bak.example.com"}]` |
+| `REMOTE_CONFIG` | 自定义远程配置列表 | `[{"text":"ACL4SSR","value":"https://..."},{"text":"自用","value":"https://..."}]` |
+
 配置完成后，请触发一次 **Retry deployment** 以生效。
 
 ## 原理说明
