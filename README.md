@@ -1,4 +1,13 @@
 # subweb
+
+Fork from [stilleshan/subweb](https://github.com/stilleshan/subweb)  
+
+在原版基础上修复一些 BUG 并做了一些修改，增加了 Cloudflare Worker 部署方法  
+
+增加配套短域名工具：[Aethersailor/cf-shortlink-worker](https://github.com/Aethersailor/cf-shortlink-worker)，可使用 Cloudflare Pages 部署  
+
+全套服务均可部署于 Cloudflare 云端，无需服务器或 VPS  
+
 ## 简介
 subweb 是基于 subconverter 订阅转换的前端项目,方便用户快速生成各平台的订阅链接.
 
