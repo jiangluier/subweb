@@ -12,6 +12,8 @@ window.config = {
       url: 'https://sub.xeton.dev',
     },
   ],
+  // 是否启用短链接功能 (true: 启用, false: 关闭)
+  enableShortUrl: true,
   // 短域名服务地址
   shortUrl: 'https://s.ops.ci',
   // 首页菜单

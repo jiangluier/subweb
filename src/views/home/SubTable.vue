@@ -90,12 +90,14 @@
                 <div class="col-12 col-md-2">
                   <el-button type="success" @click="getSubUrl()" style="width: 100%">转换</el-button>
                 </div>
-                <div class="col-12 col-md-10">
-                  <input class="form-control" placeholder="点击获取短链" v-model.trim="result.shortUrl" />
-                </div>
-                <div class="col-12 col-md-2">
-                  <el-button type="primary" :loading="isShortUrlLoading" @click="getShortUrl()" style="width: 100%" class="short-url-btn">短链</el-button>
-                </div>
+                <template v-if="isShortUrlEnabled">
+                  <div class="col-12 col-md-10">
+                    <input class="form-control" placeholder="点击获取短链" v-model.trim="result.shortUrl" />
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <el-button type="primary" :loading="isShortUrlLoading" @click="getShortUrl()" style="width: 100%" class="short-url-btn">短链</el-button>
+                  </div>
+                </template>
               </div>
             </div>
           </div>
@@ -163,6 +165,12 @@ export default {
       remoteConfig: window.config.remoteConfigOptions?.[0]?.value || '',
       isShortUrlLoading: false,
     };
+  },
+  computed: {
+    // 判断短链接功能是否启用
+    isShortUrlEnabled() {
+      return window.config.enableShortUrl !== false;
+    },
   },
   created() {
     this.initBackendOptions();

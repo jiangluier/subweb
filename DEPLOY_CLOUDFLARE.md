@@ -4,15 +4,15 @@
 
 ## 部署步骤
 
-1.  **Fork 本项目**到你的 GitHub 账号。
-2.  登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)，进入 **Pages** 页面。
-3.  点击 **Create a project** -> **Connect to Git**。
-4.  选择你 Fork 的 `subweb` 仓库。
-5.  在 **Build settings** 中：
-    *   **Framework preset**: 选择 `Vue.js`
-    *   **Build command**: `npm run build`
-    *   **Build output directory**: `dist`
-6.  点击 **Save and Deploy**。
+1. **Fork 本项目**到你的 GitHub 账号。
+2. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)，进入 **Pages** 页面。
+3. 点击 **Create a project** -> **Connect to Git**。
+4. 选择你 Fork 的 `subweb` 仓库。
+5. 在 **Build settings** 中：
+    * **Framework preset**: 选择 `Vue.js`
+    * **Build command**: `npm run build`
+    * **Build output directory**: `dist`
+6. 点击 **Save and Deploy**。
 
 ## 环境变量配置
 
@@ -23,6 +23,7 @@
 | `SITE_NAME` | 网站标题 | `Subconverter Web` |
 | `API_URL` | 本地后端 API 地址 | `http://127.0.0.1:25500` |
 | `SHORT_URL` | 短链接服务地址 | `https://s.ops.ci` |
+| `ENABLE_SHORT_URL` | 是否启用短链接功能 | `true` |
 
 ### 进阶配置 (JSON)
 
