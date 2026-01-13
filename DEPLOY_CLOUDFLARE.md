@@ -42,6 +42,39 @@
 
 ---
 
+## 🌐 自定义域名
+
+部署完成后，Cloudflare 会分配一个 `*.pages.dev` 的默认域名。如需使用自定义域名，请按以下步骤操作：
+
+### 前提条件
+
+- 你的域名已托管在 Cloudflare（即 DNS 由 Cloudflare 管理）
+
+### 配置步骤
+
+1. 进入你的 Pages 项目页面
+2. 点击 **Custom domains** 标签
+3. 点击 **Set up a custom domain**
+4. 输入你想使用的域名（如 `sub.example.com`）
+5. 点击 **Continue**
+6. Cloudflare 会自动添加 DNS 记录，点击 **Activate domain**
+
+### DNS 记录说明
+
+Cloudflare 会自动创建一条 CNAME 记录：
+
+| 类型 | 名称 | 内容 |
+| :--- | :--- | :--- |
+| CNAME | `sub` | `your-project.pages.dev` |
+
+> 💡 **提示**：如果域名不在 Cloudflare 管理，你需要手动在域名服务商处添加上述 CNAME 记录，然后回到 Pages 验证。
+
+### SSL 证书
+
+Cloudflare 会自动为自定义域名签发免费的 SSL 证书，无需额外配置。证书签发通常在几分钟内完成。
+
+---
+
 ## ⚙️ 环境变量配置
 
 在 Cloudflare Pages 项目的 **Settings** → **Environment variables** 中，可以添加以下变量来覆盖默认配置：
