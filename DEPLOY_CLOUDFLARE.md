@@ -1,43 +1,124 @@
-# Cloudflare Pages 部署指南
+<div align="center">
+  <h1>☁️ Cloudflare Pages 部署指南</h1>
+  <p>无需服务器，轻松部署你的订阅转换前端</p>
+</div>
 
-本项目原生支持部署到 Cloudflare Pages，并支持通过环境变量动态修改配置（替代 Docker 的 `start.sh`）。
+---
 
-## 部署步骤
+## 📖 概述
 
-1. **Fork 本项目**到你的 GitHub 账号。
-2. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)，进入 **Pages** 页面。
-3. 点击 **Create a project** -> **Connect to Git**。
-4. 选择你 Fork 的 `subweb` 仓库。
-5. 在 **Build settings** 中：
-    * **Framework preset**: 选择 `Vue.js`
-    * **Build command**: `npm run build`
-    * **Build output directory**: `dist`
-6. 点击 **Save and Deploy**。
+本项目原生支持部署到 **Cloudflare Pages**，并支持通过环境变量动态修改配置（替代 Docker 的 `start.sh`）。
 
-## 环境变量配置
+> 💡 全套服务均可部署于 Cloudflare 云端，完全免费、无需 VPS
 
-在 Cloudflare Pages 项目的 **Settings** -> **Environment variables** 中，你可以添加以下变量来覆盖默认配置（与 Docker 环境变量保持一致）：
+---
+
+## 🚀 部署步骤
+
+### 1. Fork 项目
+
+将 [Aethersailor/subweb](https://github.com/Aethersailor/subweb) Fork 到你的 GitHub 账号。
+
+### 2. 连接 Cloudflare Pages
+
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
+2. 进入 **Workers & Pages** → **Pages**
+3. 点击 **Create** → **Connect to Git**
+4. 选择你 Fork 的 `subweb` 仓库
+
+### 3. 配置构建设置
+
+在 **Build settings** 中填写：
+
+| 配置项 | 值 |
+| :--- | :--- |
+| **Framework preset** | `Vue.js` |
+| **Build command** | `npm run build` |
+| **Build output directory** | `dist` |
+
+### 4. 部署
+
+点击 **Save and Deploy**，等待构建完成即可。
+
+---
+
+## ⚙️ 环境变量配置
+
+在 Cloudflare Pages 项目的 **Settings** → **Environment variables** 中，可以添加以下变量来覆盖默认配置：
+
+### 基础配置
 
 | 变量名 | 描述 | 默认值 |
 | :--- | :--- | :--- |
 | `SITE_NAME` | 网站标题 | `Subconverter Web` |
-| `API_URL` | 本地后端 API 地址 | `http://127.0.0.1:25500` |
-| `SHORT_URL` | 短链接服务地址 | `https://s.ops.ci` |
+| `API_URL` | 后端 API 地址 | `http://127.0.0.1:25500` |
+| `SHORT_URL` | 短链接服务地址 | `https://s.asailor.org` |
 | `ENABLE_SHORT_URL` | 是否启用短链接功能 | `true` |
 
-### 进阶配置 (JSON)
+### 进阶配置（JSON 格式）
 
-如果需要配置多个后端或自定义远程配置列表，可以使用 **JSON 格式**的字符串。
+如需配置多个后端或自定义远程配置列表，可使用 **JSON 格式**字符串：
 
-| 变量名 | 描述 | 示例值 (JSON String) |
+| 变量名 | 描述 | 示例值 |
 | :--- | :--- | :--- |
-| `API_BACKENDS` | 自定义后端列表 (覆盖 `API_URL`) | `[{"name":"我的服务","url":"https://api.example.com"},{"name":"备用","url":"https://bak.example.com"}]` |
-| `API_BACKENDS` | 自定义后端列表 (覆盖 `API_URL`) | `[{"name":"我的服务","url":"https://api.example.com"},{"name":"备用","url":"https://bak.example.com"}]` |
-| `REMOTE_CONFIG` | 自定义远程配置列表 | `[{"text":"ACL4SSR","value":"https://..."},{"text":"自用","value":"https://..."}]` |
-| `MENU_ITEM` | 自定义顶部菜单 | `[{"title":"TG群","link":"https://t.me/...","target":"_blank"}]` |
+| `API_BACKENDS` | 自定义后端列表（覆盖 `API_URL`） | 见下方示例 |
+| `REMOTE_CONFIG` | 自定义远程配置列表 | 见下方示例 |
+| `MENU_ITEM` | 自定义顶部菜单 | 见下方示例 |
 
-配置完成后，请触发一次 **Retry deployment** 以生效。
+#### 示例：`API_BACKENDS`
 
-## 原理说明
+```json
+[
+  {"name": "主后端", "url": "https://api.example.com"},
+  {"name": "备用后端", "url": "https://bak.example.com"}
+]
+```
 
-项目包含 `functions/conf/config.js.js` 文件。这是一个 Cloudflare Pages Function，它会拦截对 `/conf/config.js` 的请求，并根据环境变量动态生成 JavaScript 配置代码返回给浏览器。
+#### 示例：`REMOTE_CONFIG`
+
+```json
+[
+  {"text": "ACL4SSR 默认规则", "value": "https://raw.githubusercontent.com/..."},
+  {"text": "自用规则", "value": "https://your-config-url.com/config.ini"}
+]
+```
+
+#### 示例：`MENU_ITEM`
+
+```json
+[
+  {"title": "Telegram 群组", "link": "https://t.me/your_group", "target": "_blank"},
+  {"title": "GitHub", "link": "https://github.com/Aethersailor", "target": "_blank"}
+]
+```
+
+> ⚠️ **注意**：修改环境变量后，需要点击 **Retry deployment** 触发重新部署才能生效。
+
+---
+
+## 🔧 原理说明
+
+项目包含 `functions/conf/config.js.js` 文件，这是一个 **Cloudflare Pages Function**。
+
+工作流程：
+
+1. 浏览器请求 `/conf/config.js`
+2. Pages Function 拦截该请求
+3. 读取环境变量，动态生成配置代码
+4. 返回定制化的 JavaScript 配置
+
+这使得无需修改代码即可实现配置自定义。
+
+---
+
+## 🔗 相关链接
+
+- [📌 SubWeb 主项目](https://github.com/Aethersailor/subweb)
+- [🔗 配套短链接服务](https://github.com/Aethersailor/cf-shortlink-worker)
+- [📜 自定义分流规则](https://github.com/Aethersailor/Custom_OpenClash_Rules)
+
+---
+
+<div align="center">
+  <sub>返回 <a href="README.md">README</a></sub>
+</div>
