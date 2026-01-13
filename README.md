@@ -1,65 +1,114 @@
-# subweb
+<div align="center">
+  <h1>✨ SubWeb</h1>
+  <p><strong>优雅的 Subconverter 订阅转换前端</strong></p>
 
-Fork from [stilleshan/subweb](https://github.com/stilleshan/subweb)  
+  [![GitHub release](https://img.shields.io/github/v/release/Aethersailor/subweb?style=flat-square&logo=github)](https://github.com/Aethersailor/subweb/releases)
+  [![GitHub stars](https://img.shields.io/github/stars/Aethersailor/subweb?style=flat-square&logo=github)](https://github.com/Aethersailor/subweb/stargazers)
+  [![Docker Pulls](https://img.shields.io/docker/pulls/aethersailor/subweb?style=flat-square&logo=docker)](https://hub.docker.com/r/aethersailor/subweb)
+  [![License](https://img.shields.io/github/license/Aethersailor/subweb?style=flat-square)](LICENSE)
 
-在原版基础上修复一些 BUG 并做了一些修改，增加了 Cloudflare Worker 部署方法  
+  <p>
+    <a href="https://sub.asailor.org">🌐 在线演示</a> •
+    <a href="#-快速开始">🚀 快速开始</a> •
+    <a href="#-部署方式">📦 部署方式</a> •
+    <a href="DEPLOY_CLOUDFLARE.md">☁️ Cloudflare Pages 部署</a>
+  </p>
+</div>
 
-增加配套短域名工具：[Aethersailor/cf-shortlink-worker](https://github.com/Aethersailor/cf-shortlink-worker)，可使用 Cloudflare Pages 部署  
+---
 
-全套服务均可部署于 Cloudflare 云端，无需服务器或 VPS  
+## 📖 项目简介
 
-Demo: <https://sub.asailor.org>
+SubWeb 是一个基于 **Vue 3** + **Element Plus** 构建的 [subconverter](https://github.com/tindy2013/subconverter) 订阅转换前端，帮助用户快速生成各平台（Clash、Surge、Quantumult X 等）的代理订阅链接。
 
-## 简介
+> 本项目 Fork 自 [stilleshan/subweb](https://github.com/stilleshan/subweb)，在原版基础上修复了一些 BUG 并进行了功能增强。
 
-subweb 是基于 subconverter 订阅转换的前端项目,方便用户快速生成各平台的订阅链接.
+### ✨ 特性亮点
 
-> *subweb 是我个人入门 vuejs 学习时简单做的一个案例,使用还算方便,开源出来,欢迎各路大佬贡献维护.*
+- 🎨 **现代化界面** — 基于 Vue 3 与 Element Plus，响应式设计，支持多端访问
+- ☁️ **Cloudflare 原生支持** — 新增 Cloudflare Pages/Workers 部署方案，无需服务器
+- 🔗 **短链接支持** — 集成短链接服务，便于分享与管理
+- 🐳 **Docker 一键部署** — 支持 x86 与 ARM 架构，快速上线
+- ⚙️ **高度可配置** — 支持自定义后端 API、远程配置、站点名称等
 
-*GitHub [stilleshan/subweb](https://github.com/Aethersailor/subweb)  
-Docker [stilleshan/subweb](https://hub.docker.com/r/Aethersailor/subweb)*
-> *docker image support for X86 and ARM*
+---
 
-## 示例
+## 🧩 相关项目
 
-[https://sub.asailor.org](https://sub.asailor.org)  
-*`前后端示例,可以直接使用.`*
+| 项目 | 说明 |
+| :--- | :--- |
+| [Aethersailor/subweb](https://github.com/Aethersailor/subweb) | 📌 本项目 — 订阅转换前端 |
+| [Aethersailor/SubConverter-Extended](https://github.com/Aethersailor/SubConverter-Extended) | 🔗 配套改进型后端服务，支持更多功能 |
+| [Aethersailor/cf-shortlink-worker](https://github.com/Aethersailor/cf-shortlink-worker) | 🔗 配套短链接服务，Cloudflare Workers 部署 |
+| [Aethersailor/Custom_OpenClash_Rules](https://github.com/Aethersailor/Custom_OpenClash_Rules) | 📜 自定义 OpenClash 分流规则 |
 
-## 部署
+---
 
-### docker 本地版
+## 🚀 快速开始
 
-*适用于本机快速部署使用*
+### 在线体验
 
-```shell
+访问演示站点，立即体验订阅转换功能：
+
+**👉 [https://sub.asailor.org](https://sub.asailor.org)**
+
+---
+
+## 📦 部署方式
+
+### 方式一：Cloudflare Pages（推荐）
+
+> 全套服务均可部署于 Cloudflare 云端，无需服务器或 VPS
+
+**详细教程请参阅 → [DEPLOY_CLOUDFLARE.md](DEPLOY_CLOUDFLARE.md)**
+
+简要步骤：
+
+1. Fork 本项目到你的 GitHub 账号
+2. 在 Cloudflare Pages 中连接你的仓库
+3. 设置构建命令为 `npm run build`，输出目录为 `dist`
+4. 通过环境变量自定义配置（可选）
+
+---
+
+### 方式二：Docker 部署
+
+#### 🟢 本地快速部署
+
+```bash
 docker run -d --name subweb --restart always \
   -p 18080:80 \
   aethersailor/subweb
 ```
 
-访问 `http://127.0.0.1:18080`
+访问：`http://127.0.0.1:18080`
 
-### docker 自定义版 + 短链接版
+#### 🔧 自定义配置部署
 
-自定义版可以挂载配置文件来修改`API 地址`,`短链接地址`,`站点名称`,`导航链接`.  
-参考以下命令,修改本地挂载路径,启动容器后会生成`config.js`配置文件,更改后刷新生效.
+挂载配置目录，实现自定义站点名称、后端 API、短链接服务等：
 
-```shell
+```bash
 docker run -d --name subweb --restart always \
   -p 18080:80 \
-  -v /PATH/subweb/public/conf:/usr/share/nginx/html/conf \
+  -v /your/path/conf:/usr/share/nginx/html/conf \
   aethersailor/subweb
 ```
 
-访问 `http://127.0.0.1:18080`  
-> *推荐使用 nginx 反向代理部署*
+启动后会在挂载目录生成 `config.js` 配置文件，修改后刷新页面即可生效。
 
-示例配置：  
+> 💡 **推荐**：使用 Nginx 反向代理并配置 HTTPS
 
-```
+---
+
+## ⚙️ 配置说明
+
+`config.js` 配置文件示例：
+
+```javascript
 window.config = {
   // 网站标题
   siteName: 'Subconverter Web',
+  
   // 后端 API 列表
   apiBackends: [
     {
@@ -71,13 +120,16 @@ window.config = {
       url: 'https://api.v1.mk',
     },
   ],
-  // 是否启用短链接功能 (true: 启用, false: 关闭)
+  
+  // 短链接功能开关
   enableShortUrl: true,
-  // 短域名服务地址
+  
+  // 短链接服务地址
   shortUrl: 'https://s.asailor.org',
+  
   // 首页菜单
   menuItem: [
-   {
+    {
       title: '通知频道',
       link: 'https://t.me/custom_openclash_rules',
       target: '_blank',
@@ -93,7 +145,8 @@ window.config = {
       target: '_blank',
     },
   ],
-  // 远程配置地址,可以自行按照格式添加。
+  
+  // 远程配置列表
   remoteConfigOptions: [
     {
       value: 'https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/cfg/Custom_Clash.ini',
@@ -113,10 +166,24 @@ window.config = {
     },
   ],
 };
-```  
+```
 
-## 链接
+---
 
-- [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub)
-- [stilleshan/subweb](https://github.com/stilleshan/subweb)
-- [stilleshan/subconverter](https://github.com/stilleshan/subconverter)
+## 🔗 致谢
+
+本项目基于以下优秀项目进行开发：
+
+- [stilleshan/subweb](https://github.com/stilleshan/subweb) — 原始项目
+
+---
+
+## 📄 开源协议
+
+本项目基于 [GPL-3.0](LICENSE) 协议开源。
+
+---
+
+<div align="center">
+  <sub>Made with ❤️ by <a href="https://github.com/Aethersailor">Aethersailor</a></sub>
+</div>
