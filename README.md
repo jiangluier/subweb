@@ -2,7 +2,6 @@
   <h1>✨ SubWeb</h1>
   <p><strong>优雅的 Subconverter 订阅转换前端</strong></p>
 
-  [![GitHub release](https://img.shields.io/github/v/release/Aethersailor/subweb?style=flat-square&logo=github)](https://github.com/Aethersailor/subweb/releases)
   [![GitHub stars](https://img.shields.io/github/stars/Aethersailor/subweb?style=flat-square&logo=github)](https://github.com/Aethersailor/subweb/stargazers)
   [![Docker Pulls](https://img.shields.io/docker/pulls/aethersailor/subweb?style=flat-square&logo=docker)](https://hub.docker.com/r/aethersailor/subweb)
   [![License](https://img.shields.io/github/license/Aethersailor/subweb?style=flat-square)](LICENSE)
