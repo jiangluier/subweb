@@ -12,12 +12,20 @@ export async function onRequest(context) {
     // Priority: env.API_BACKENDS (JSON) > env.API_URL (Single Override) > Default List
     let apiBackends = [
         {
-            name: '本地服务',
-            url: apiUrl,
+            name: '肥羊增强型后端',
+            url: https://api.v1.mk,
         },
         {
             name: '官方服务',
             url: 'https://sub.xeton.dev',
+        },
+        {
+            name: '自建后端',
+            url: 'https://mqtpvhexheny.us-west-1.clawcloudrun.com',
+        },
+        {
+            name: 'Aethersailor 后端',
+            url: 'https://api.asailor.org',
         },
     ];
 
@@ -40,6 +48,22 @@ export async function onRequest(context) {
             value: 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini',
             text: 'ACL4SSR Online Full',
         },
+        {
+            value: 'https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/cfg/Custom_Clash.ini',
+            text: 'Aethersailor 规则 标准版',
+        },
+        {
+            value: 'https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/cfg/Custom_Clash_Lite.ini',
+            text: 'Aethersailor 规则 轻量版',
+        },
+        {
+            value: 'https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/cfg/Custom_Clash_GFW.ini',
+            text: 'Aethersailor 规则 极简版(GFW)',
+        },
+        {
+            value: 'https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/cfg/Custom_Clash_Full.ini',
+            text: 'Aethersailor 规则 重度分流版',
+        },
     ];
 
     if (env.REMOTE_CONFIG) {
@@ -60,7 +84,7 @@ export async function onRequest(context) {
         },
         {
             title: 'GitHub',
-            link: 'https://github.com/Aethersailor/subweb',
+            link: 'https://github.com/jiangluier/subweb',
             target: '_blank',
         },
     ];
