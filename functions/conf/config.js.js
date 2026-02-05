@@ -4,12 +4,14 @@ export async function onRequest(context) {
     // 1. Base Configuration
     const siteName = env.SITE_NAME || 'Subconverter Web';
     const shortUrl = env.SHORT_URL || 'https://s.ops.ci';
-    const apiUrl = env.API_URL || 'http://127.0.0.1:25500';
-    // 解析 ENABLE_SHORT_URL，默认为 true，仅当显式设置为 'false' 时关闭
+    // 解析 ENABLE_SHORT_URL
     const enableShortUrl = (env.ENABLE_SHORT_URL || 'true').toLowerCase() !== 'false';
 
     // 2. Advanced: API Backends
-    // Priority: env.API_BACKENDS (JSON) > env.API_URL (Single Override) > Default List
+    // 获取默认后端 URL (用于覆盖逻辑)
+    const defaultApiUrl = env.API_URL || 'http://127.0.0.1:25500';
+
+    // 默认列表
     let apiBackends = [
         {
             name: '肥羊增强型后端',
@@ -21,7 +23,8 @@ export async function onRequest(context) {
         },
         {
             name: '自建后端',
-            url: 'https://mqtpvhexheny.us-west-1.clawcloudrun.com',
+            // 建议：如果没有设置 API_URL，这里才使用硬编码，或者干脆移除硬编码
+            url: env.API_URL || 'https://mqtpvhexheny.us-west-1.clawcloudrun.com', 
         },
         {
             name: 'Aethersailor 后端',
@@ -29,16 +32,24 @@ export async function onRequest(context) {
         },
     ];
 
+    // 逻辑修复：处理优先级
     if (env.API_BACKENDS) {
+        // 优先级 1: 如果提供了完整的 JSON 列表，直接使用
         try {
             apiBackends = JSON.parse(env.API_BACKENDS);
         } catch (e) {
             console.error('Failed to parse API_BACKENDS', e);
         }
+    } else if (env.API_URL) {
+        // 优先级 2: 如果没有 JSON 列表，但提供了单个 API_URL，将其置顶或作为默认
+        // 这里的策略是将 env.API_URL 插入到列表第一位，作为默认选择
+        apiBackends.unshift({
+            name: '自定义后端 (Env)',
+            url: env.API_URL
+        });
     }
 
     // 3. Advanced: Remote Config
-    // Priority: env.REMOTE_CONFIG (JSON) > Default List
     let remoteConfigOptions = [
         {
             value: 'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini',
@@ -75,7 +86,6 @@ export async function onRequest(context) {
     }
 
     // 4. Advanced: Menu Items
-    // Priority: env.MENU_ITEM (JSON) > Default List
     let menuItem = [
         {
             title: '首页',
@@ -100,6 +110,7 @@ export async function onRequest(context) {
     // 5. Construct Final Config Object
     const config = {
         siteName: siteName,
+        apiUrl: defaultApiUrl, // 修复：将 apiUrl 加入配置，因为某些旧版前端逻辑可能依赖这个字段
         apiBackends: apiBackends,
         enableShortUrl: enableShortUrl,
         shortUrl: shortUrl,
