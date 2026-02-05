@@ -13,7 +13,7 @@ export async function onRequest(context) {
     let apiBackends = [
         {
             name: '肥羊增强型后端',
-            url: 'https://api.v1.mk,
+            url: 'https://api.v1.mk',
         },
         {
             name: '官方服务',
